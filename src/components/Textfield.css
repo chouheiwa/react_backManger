@@ -1,0 +1,29 @@
+.ComponentTextfield input[type="text"]{
+  width: 81.2%;
+  padding: 1.25em 1em 1.25em 4em;
+  color: #283440;
+  font-size: 16px;
+  outline: none;
+  font-weight: 500;
+  border: none;
+  border-bottom:1px solid #C0C3C8;
+  font-family: 'Open Sans', sans-serif;
+  background: no-repeat 14px 20px #ffffff;
+   border-top-left-radius:0.3em;
+   -webkit-border-top-right-radius:0.3em;
+    border-top-right-radius:0.3em;
+  }
+.ComponentTextfield input[type="password"]{
+  width: 81.2%;
+  padding: 1.25em 1em 1.25em 4em;
+  color: #283440;
+  font-size: 16px;
+  outline: none;
+  font-weight: 500;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+   background: no-repeat 13px -53px #ffffff;
+   border-bottom-left-radius:0.3em;
+   -webkit-border-bottom-right-radius:0.3em;
+    border-bottom-right-radius:0.3em;
+}
