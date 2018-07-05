@@ -70,7 +70,7 @@ function apiAxios (method, api, params, success, failure) {
             let res = err.response;
             if (err) {
                 console.log(err);
-                window.alert('api error, ')
+                window.alert('api error!')
             }
         })
 }
