@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { hashHistory } from 'react-router'
 // 配置API接口地址
 var root = 'http://localhost:8080/MyTest/';
 
@@ -10,6 +11,8 @@ class BaseResult {
         this.result = dic["result"];
     }
 }
+
+const obj = {};
 
 // 自定义判断元素类型JS
 function toType (obj) {
@@ -55,28 +58,28 @@ function apiAxios (method, api, params, success, failure) {
         params: method === 'GET' || method === 'DELETE' ? params : null,
         baseURL: root,
         withCredentials: false
-    })
-        .then(function (res) {
+    }).then(function (res) {
             var base = new BaseResult(res.data);
 
             if (base.status) {
                 success(base.result);
             }else {
-                failure(base.message);
+                if (base.errorCode == 5) {
+                    obj.base.props.history.push('/login');
+                }else {
+                    failure(base.message);
+                }
             }
-
-        })
-        .catch(function (err) {
-            let res = err.response;
+        }).catch(function (err) {
             if (err) {
                 console.log(err);
-                window.alert('api error!')
             }
-        })
+        });
 }
 
 // 返回在vue模板中的调用接口
 export default {
+    needLogin:obj,
     get: function (api, success, failure) {
         return apiAxios('GET', api.apiLocation, api.paramter, success, failure)
     },

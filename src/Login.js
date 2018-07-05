@@ -18,13 +18,17 @@ class Login extends Component {
     submitAction() {
         var tag = this;
 
-        http.post(api.login(this.updateData.userName,this.updateData.password),function (data) {
-            console.log(data);
-            console.log(this);
-            tag.props.history.push('/home');
-        },function (msg) {
-            console.log(msg);
+        tag.props.form.validateFields((err, values) => {
+            if (err) return;
+            http.post(api.login(values.userName,values.password),function (data) {
+                console.log("登录成功");
+                tag.props.history.push('/home/chainTable');
+            },function (msg) {
+                console.log(msg);
+            });
         });
+
+
     }
 
     textChange(text,index) {
@@ -37,20 +41,17 @@ class Login extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-
+        var buttonFont = 20;
         return (
             <div className="login">
-                <h1>链猫科技区块链后台管理</h1>
                 <div className="login-form">
-                    <div className="login-logo"><img src={require('./images/cam.png')} className="img-responsive" alt="" /></div>
-                    <Form onSubmit={()=>{
-                        this.submitAction();
-                    }} style={{maxWidth: '300px'}}>
+                    <div className="login-logo"><span>区块链</span></div>
+                    <Form style={{maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('userName', {
                                 rules: [{ required: true, message: '请输入用户名!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 14 }} />} placeholder="请输入用户名" />
+                                <Input prefix={<Icon type="user" style={{ fontSize: buttonFont }} />} placeholder="请输入用户名" />
                             )}
                         </FormItem>
 
@@ -58,11 +59,27 @@ class Login extends Component {
                             {getFieldDecorator('password', {
                                 rules: [{ required: true, message: '请输入密码!' }],
                             })(
-                                <Input prefix={<Icon type="lock" style={{ fontSize: 14 }} />} type="password" placeholder="请输入密码" />
+                                <Input prefix={<Icon type="lock" style={{ fontSize: buttonFont }} />} type="password" placeholder="请输入密码" />
                             )}
                         </FormItem>
 
-
+                        <FormItem>
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: true,
+                            })(
+                                <Checkbox>记住我</Checkbox>
+                            )}
+                            <a className="login-form-forgot" href="" style={{float: 'right'}}>忘记密码</a>
+                            <Button type="primary" onClick={() => {
+                                this.submitAction();
+                            }} className="login-form-button" style={{width: '100%'}}>
+                                登录
+                            </Button>
+                            <p style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <a href="">注册</a>
+                            </p>
+                        </FormItem>
                     </Form>
 
                 </div>

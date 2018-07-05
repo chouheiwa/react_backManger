@@ -14,11 +14,12 @@ baseApi.deleteChain = "chainManagerApi/deleteChain";
 export default {
     login: function (userName, password) {
         return {
-            paramter : {
+            paramter :
+            {
                 userName : userName,
                 password : password
             },
-            apiLocation : "loginApi/login"
+            apiLocation : baseApi.login,
         };
     },
     register: function () {
@@ -31,7 +32,10 @@ export default {
         return baseApi.getChainCount;
     },
     getAllChains: function () {
-        return baseApi.getAllChains;
+        return {
+            paramter : {},
+            apiLocation : baseApi.getAllChains,
+        };
     },
     getChainByPage: function () {
         return baseApi.getChainByPage;

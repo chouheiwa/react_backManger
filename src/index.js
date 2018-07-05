@@ -4,17 +4,19 @@ import { render } from 'react-dom'
 import { BrowserRouter , Route} from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux';
 
-import './index.css';
+// import './index.css';
 import Home from './Home';
 import Login from './Login';
+import ChainTable from './components/ChainTable/ChainTable';
 
 import registerServiceWorker from './registerServiceWorker';
 
 render((
     <BrowserRouter>
-        <div>
-            <Route exact path="/" component={Login}/>
-            <Route path="/home" component={Home}/>
+        <div style={{height: '100%'}}>
+            <Route exact path="/login" component={Login}/>
+            <Route path="/home/:selectKey" component={Home} />
+            <Route path="/home/chainTable" component={ChainTable}/>
         </div>
     </BrowserRouter>
 ),document.getElementById('root'));
