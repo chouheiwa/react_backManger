@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { hashHistory } from 'react-router'
 // 配置API接口地址
 var root = 'http://localhost:8080/MyTest/';
 
@@ -64,7 +63,7 @@ function apiAxios (method, api, params, success, failure) {
             if (base.status) {
                 success(base.result);
             }else {
-                if (base.errorCode == 5) {
+                if (base.errorCode === 5) {
                     obj.base.props.history.push('/login');
                 }else {
                     failure(base.message);

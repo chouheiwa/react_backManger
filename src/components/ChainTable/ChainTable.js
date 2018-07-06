@@ -2,57 +2,118 @@
  * Created by flh on 2018/7/5.
  */
 import React, { Component } from 'react';
-import { Table , Pagination , Button, Divider, Icon, Modal, Spin} from 'antd';
+import { Table , Button, Divider, Modal, Spin} from 'antd';
 import Http from '../../baseFunction/http'
 import Api from '../../baseFunction/api'
-const columns = [{
-    title: '区块链备注',
-    dataIndex: 'chainAlies',
-    key: 'chainAlies',
-}, {
-    title: '公钥前缀',
-    dataIndex: 'chainPrefix',
-    key: 'chainPrefix',
-}, {
-    title: '节点地址',
-    dataIndex: 'chainWebsocket',
-    key: 'chainWebsocket',
-}, {
-    title: '链id',
-    dataIndex: 'chainId',
-    key: 'chainId',
-}, {
-    title: '类型',
-    dataIndex: 'testChain',
-    key: 'testChain',
-}, {
-    title: '操作',
-    key: 'action',
-    render: (text, record) => (
-        <span>
-            <a href="javascript:;">管理链用户</a>
-            <Divider type="vertical" />
-            <a href="javascript:;" className="ant-dropdown-link">删除<Icon type="down" /></a>
-        </span>
-    ),
-}];
+import AddChain from './AddChain'
 
 class ChainTable extends React.Component {
+
     state = {
         totalCount: 100,
         pageSize: 10,
         totalPage: 500,
         currentPage: 3,
+        needShowModal: false,
+        needShowChange: false,
         isLoading: false,
-        totalData: []// Check here to configure the default column
+        totalData: [],
+        selectedData:this.selectedData,// Check here to configure the default column
     };
 
+    cacheState = this.state;
+
+    constructor(props) {
+        super(props);
+        this.columns = [{
+            title: '区块链备注',
+            dataIndex: 'chainAlies',
+            key: 'chainAlies',
+        }, {
+            title: '公钥前缀',
+            dataIndex: 'chainPrefix',
+            key: 'chainPrefix',
+        }, {
+            title: '节点地址',
+            dataIndex: 'chainWebsocket',
+            key: 'chainWebsocket',
+        }, {
+            title: '链id',
+            dataIndex: 'chainId',
+            key: 'chainId',
+        }, {
+            title: '类型',
+            dataIndex: 'testChain',
+            key: 'testChain',
+        }, {
+            title: '操作',
+            key: 'action',
+            render: (text, record) => {
+                return (
+                    <span>
+                        <Button type="primary" onClick={()=>{
+                            this.selectedData = record;
+                            this.cacheState.selectedData = record;
+                            this.needChangeRow();
+                        }}>修改</Button>
+                        <Divider type="vertical"/>
+                        <a href="javascript:;">管理链用户</a>
+                        <Divider type="vertical"/>
+                        <Button type="danger" onClick={()=>{
+                            this.selectedData = record;
+                            this.needDeleteRow();
+                        }}>删除</Button>
+                    </span>
+                );
+            },
+        }];
+    }
+
+    selectedData = {};
+    //通过id删除行
+    needDeleteRow = () => {
+        this.cacheState.needShowModal = true;
+
+        this.setState(this.cacheState);
+    };
+
+    needChangeRow = () => {
+        this.cacheState.needShowChange = true;
+
+        this.setState(this.cacheState);
+    };
+
+    handleCancel = () => {
+        this.cacheState.needShowModal = false;
+
+        this.setState(this.cacheState);
+    };
+
+    actionOK = () => {
+        console.log("调用了");
+
+        this.cacheState.isLoading = true;
+        this.setState(this.cacheState);
+        Http.post(Api.deleteChain(this.selectedData.id),(data) =>{
+            this.onNeedLoad();
+        },(msg) => {
+            console.log(msg);
+        });
+    };
+    componentWillReceiveProps() {
+        this.cacheState.needShowChange = false;
+        this.setState(this.cacheState);
+        this.onNeedLoad();
+    }
     componentWillMount () {
-        console.log("初始化了");
         this.onNeedLoad();
     }
     //页面显示数量
     onNeedLoad() {
+        this.cacheState.isLoading = true;
+
+        this.setState(this.cacheState);
+
         Http.post(Api.getAllChains(),
             (data) =>
             {
@@ -61,27 +122,35 @@ class ChainTable extends React.Component {
 
                     data[i].testChain = data[i].testChain?"测试":"正式";
                 }
-                var state = this.state;
-                state.totalData = data;
-                this.setState(state);
+
+                this.cacheState.totalData = data;
+                this.cacheState.isLoading = false;
+                this.cacheState.needShowModal = false;
+                this.setState(this.cacheState);
             },function (msg) {
                 console.log(msg);
             });
     }
 
     render() {
+        const selectDom = this.state.needShowChange?<AddChain data={this.state.selectedData}/>:<div />;
 
-        /*pagination={
-        <Pagination showSizeChanger onShowSizeChange={(current,pageSize)=>{
-            this.onShowSizeChange(current,pageSize);
-        }} defaultCurrent={this.state.currentPage} total={this.state.totalPage} />
-    }*/
         return (
             <Spin spinning={this.state.isLoading} size="large">
-                <Table key="rowKey" columns={columns} dataSource={this.state.totalData} />
+                <Table key="rowKey" columns={this.columns} dataSource={this.state.totalData} />
+                <Modal title="提示"
+                       visible={this.state.needShowModal}
+                       onCancel={this.handleCancel}
+                       footer={[
+                           <Button key="back" onClick={this.handleCancel}>取消</Button>,
+                           <Button key="submit" type="danger" onClick={this.actionOK}>删除</Button>,
+                       ]}
+                >
+                    <p>删除这条链将同时删除您在这条链下的所有用户,您确定要删除么?</p>
+                </Modal>
 
+                {selectDom}
             </Spin>
-
         );
     }
 }

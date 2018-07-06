@@ -25,8 +25,13 @@ export default {
     register: function () {
         return baseApi.register;
     },
-    getChainId: function () {
-        return baseApi.getChainId;
+    getChainId: function (websocket) {
+        return {
+            paramter : {
+                websocket:websocket
+            },
+            apiLocation : baseApi.getChainId,
+        };
     },
     getChainCount: function () {
         return baseApi.getChainCount;
@@ -40,16 +45,43 @@ export default {
     getChainByPage: function () {
         return baseApi.getChainByPage;
     },
-    getChainById: function () {
-        return baseApi.getChainById;
+    getChainById: function (websocket) {
+        return {
+            paramter : {
+                websocket:websocket
+            },
+            apiLocation : baseApi.getChainId,
+        };
     },
-    createChain: function () {
-        return baseApi.createChain;
+    createChain: function (chainAlies,chainWebsocket,chainPrefix,chainId,testChain) {
+        return {
+            paramter : {
+                chainAlies:chainAlies,
+                chainWebsocket:chainWebsocket,
+                chainPrefix:chainPrefix,
+                chainId:chainId,
+                testChain:testChain
+            },
+            apiLocation : baseApi.createChain,
+        };
     },
-    updateChain: function () {
-        return baseApi.updateChain;
+    updateChain: function (id,chainAlies,chainWebsocket,chainPrefix,chainId,testChain) {
+        return {
+            paramter : {
+                id:id,
+                chainAlies:chainAlies,
+                chainWebsocket:chainWebsocket,
+                chainPrefix:chainPrefix,
+                chainId:chainId,
+                testChain:testChain
+            },
+            apiLocation : baseApi.updateChain,
+        };
     },
-    deleteChain: function () {
-        return baseApi.deleteChain;
+    deleteChain: function (id) {
+        return {
+            paramter : {id:id},
+            apiLocation : baseApi.deleteChain,
+        };
     }
 }
