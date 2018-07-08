@@ -1,5 +1,5 @@
 /**
- * Created by flh on 2018/7/5.
+ * Created by chouheiwa on 2018/7/5.
  */
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
@@ -49,7 +49,11 @@ class TopMenu extends React.Component {
                         <span><Icon type="plus" />增加新链</span>
                     </MenuItem>
                 </SubMenu>
-
+                <SubMenu title={<span><Icon type="appstore" />区块链操作</span>}>
+                    <MenuItem key="">
+                        <span>转账</span>
+                    </MenuItem>
+                </SubMenu>
             </Menu>
         );
     }

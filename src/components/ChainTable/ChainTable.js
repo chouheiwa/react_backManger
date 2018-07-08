@@ -1,19 +1,17 @@
 /**
- * Created by flh on 2018/7/5.
+ * Created by chouheiwa on 2018/7/5.
  */
 import React, { Component } from 'react';
-import { Table , Button, Divider, Modal, Spin} from 'antd';
-import Http from '../../baseFunction/http'
-import Api from '../../baseFunction/api'
-import AddChain from './AddChain'
+import { Table , Button, Divider, Modal, Spin } from 'antd';
+import Http from '../../baseFunction/http';
+import Api from '../../baseFunction/api';
+import AddChain from './AddChain';
+import JumpRouter from '../../baseFunction/JumpRouter'
+import { Link } from "react-router-dom";
 
 class ChainTable extends React.Component {
 
     state = {
-        totalCount: 100,
-        pageSize: 10,
-        totalPage: 500,
-        currentPage: 3,
         needShowModal: false,
         needShowChange: false,
         isLoading: false,
@@ -57,7 +55,7 @@ class ChainTable extends React.Component {
                             this.needChangeRow();
                         }}>修改</Button>
                         <Divider type="vertical"/>
-                        <a href="javascript:;">管理链用户</a>
+                        <Link to={JumpRouter.chainUserTable + "?id=" + record.id}>管理链用户</Link>
                         <Divider type="vertical"/>
                         <Button type="danger" onClick={()=>{
                             this.selectedData = record;

@@ -1,5 +1,5 @@
 /**
- * Created by flh on 2018/7/6.
+ * Created by chouheiwa on 2018/7/6.
  */
 import React, { Component } from 'react';
 import Http from '../../baseFunction/http'
@@ -30,7 +30,7 @@ class AddChain extends Component {
         this.state.isAdd = props.data == null;
 
         if (!this.state.isAdd) {
-            props.data.testChain = props.data.testChain == '测试';
+            props.data.testChain = props.data.testChain === '测试';
             this.state.data = props.data;
         }
     }

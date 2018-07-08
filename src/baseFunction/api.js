@@ -11,6 +11,11 @@ baseApi.createChain = "chainManagerApi/createChain";
 baseApi.updateChain = "chainManagerApi/updateChain";
 baseApi.deleteChain = "chainManagerApi/deleteChain";
 
+baseApi.selectChainUsers = "chainUserApi/selectUsers";
+baseApi.createChainUser = "chainUserApi/createChainUser";
+baseApi.updateChainUser = "chainUserApi/updateUser";
+baseApi.deleteChainUser = "chainUserApi/deleteUser";
+
 export default {
     login: function (userName, password) {
         return {
@@ -45,12 +50,12 @@ export default {
     getChainByPage: function () {
         return baseApi.getChainByPage;
     },
-    getChainById: function (websocket) {
+    getChainById: function (id) {
         return {
             paramter : {
-                websocket:websocket
+                id:id
             },
-            apiLocation : baseApi.getChainId,
+            apiLocation : baseApi.getChainById,
         };
     },
     createChain: function (chainAlies,chainWebsocket,chainPrefix,chainId,testChain) {
@@ -82,6 +87,47 @@ export default {
         return {
             paramter : {id:id},
             apiLocation : baseApi.deleteChain,
+        };
+    },
+    
+    selectChainUsers: function (chainTableId) {
+        return {
+            paramter : {
+                chainTableId : chainTableId,
+            },
+            apiLocation : baseApi.selectChainUsers,
+        }
+    },
+
+    createChainUser: function (chainId, userName, userPrivateKey, userAlies) {
+        return {
+            paramter : {
+                chainId : chainId,
+                userName : userName,
+                userPrivateKey : userPrivateKey,
+                userAlies : userAlies,
+            },
+            apiLocation : baseApi.createChainUser,
+        }
+    },
+    updateChainUser: function (id,chainId, userName, userPrivateKey, userAlies) {
+        return {
+            paramter : {
+                id : id,
+                chainId : chainId,
+                userName : userName,
+                userPrivateKey : userPrivateKey,
+                userAlies : userAlies,
+            },
+            apiLocation : baseApi.updateChainUser,
+        }
+    },deleterChainUser: function (id,chainTableId) {
+        return {
+            paramter : {
+                id: id,
+                chainTableId : chainTableId
+            },
+            apiLocation : baseApi.deleteChainUser,
         };
     }
 }
