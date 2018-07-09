@@ -16,6 +16,9 @@ baseApi.createChainUser = "chainUserApi/createChainUser";
 baseApi.updateChainUser = "chainUserApi/updateUser";
 baseApi.deleteChainUser = "chainUserApi/deleteUser";
 
+baseApi.actionTransfer = "actionApi/transferAction";
+baseApi.actionCreateAsset = "actionApi/createAssetAction";
+
 export default {
     login: function (userName, password) {
         return {
@@ -121,7 +124,8 @@ export default {
             },
             apiLocation : baseApi.updateChainUser,
         }
-    },deleterChainUser: function (id,chainTableId) {
+    },
+    deleterChainUser: function (id,chainTableId) {
         return {
             paramter : {
                 id: id,
@@ -129,5 +133,34 @@ export default {
             },
             apiLocation : baseApi.deleteChainUser,
         };
-    }
+    },
+    actionTransfer: function (chainTableId,chainUserId,toAccount,symbol,amount,memo) {
+        return {
+            paramter : {
+                chainTableId:chainTableId,
+                chainUserId:chainUserId,
+                toAccount:toAccount,
+                symbol:symbol,
+                amount:amount,
+                memo:memo,
+            },
+            apiLocation : baseApi.actionTransfer,
+        }
+    },
+    actionCreateAsset: function (chainTableId,chainUserId,assetSymbol,precision,maxSupply,baseAmount,quoteAmount,description,bitAsset) {
+        return {
+            paramter : {
+                chainTableId:chainTableId,
+                chainUserId:chainUserId,
+                assetSymbol:assetSymbol,
+                precision:precision,
+                maxSupply:maxSupply,
+                baseAmount:baseAmount,
+                quoteAmount:quoteAmount,
+                description:description,
+                bitAsset:bitAsset
+            },
+            apiLocation : baseApi.actionCreateAsset,
+        }
+    },
 }

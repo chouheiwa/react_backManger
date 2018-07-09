@@ -8,4 +8,10 @@ export default {
     addChain:"/home/chainTable/AddChain",
     chainUserTable:"/home/chainUserTable",
     addChainUser:"/home/chainUserTable/addChainUser",
+
+    chainAction:"/home/chainAction",
+    chainActionTransfer:"/home/chainAction/transfer",
+    chainActionCreateAsset:"/home/chainAction/createAsset",
+    chainActionIssueAsset:"/home/chainAction/issueAsset",
+
 };

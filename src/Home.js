@@ -11,9 +11,7 @@ export default class Home extends Component {
 
     render() {
         return (
-            <div>
-                <TopMenu />
-            </div>
+            <TopMenu />
         );
     }
 }
