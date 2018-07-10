@@ -1,6 +1,9 @@
 import axios from 'axios';
 // 配置API接口地址
-var root = 'http://localhost:8080/MyTest/';
+var test = false;
+
+
+var root = test?'http://localhost:8080/MyTest/':'http://139.199.124.245:8013/ChainManager/';
 
 class BaseResult {
     constructor(dic) {

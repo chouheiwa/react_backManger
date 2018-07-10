@@ -18,6 +18,8 @@ baseApi.deleteChainUser = "chainUserApi/deleteUser";
 
 baseApi.actionTransfer = "actionApi/transferAction";
 baseApi.actionCreateAsset = "actionApi/createAssetAction";
+baseApi.actionIssueAsset = "actionApi/issueAssetAction";
+baseApi.actionGetPrivatekey = 'actionApi/actionGetPrivatekeyFromBrainKey';
 
 export default {
     login: function (userName, password) {
@@ -163,4 +165,25 @@ export default {
             apiLocation : baseApi.actionCreateAsset,
         }
     },
+    actionIssueAsset: function (chainTableId,chainUserId,toAccount,amount,symbol,memo) {
+        return {
+            paramter : {
+                chainTableId:chainTableId,
+                chainUserId:chainUserId,
+                toAccount:toAccount,
+                amount:amount,
+                symbol:symbol,
+                memo:memo
+            },
+            apiLocation : baseApi.actionIssueAsset,
+        }
+    },
+    actionGetPrivatekey: function (brainKey) {
+        return {
+            paramter : {
+                brainKey:brainKey
+            },
+            apiLocation : baseApi.actionGetPrivatekey,
+        }
+    }
 }

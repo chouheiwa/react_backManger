@@ -13,5 +13,5 @@ export default {
     chainActionTransfer:"/home/chainAction/transfer",
     chainActionCreateAsset:"/home/chainAction/createAsset",
     chainActionIssueAsset:"/home/chainAction/issueAsset",
-
+    chainActionGetPrivateKey:"/home/chainAction/getPrivateKey",
 };

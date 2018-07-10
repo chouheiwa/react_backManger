@@ -15,16 +15,16 @@ class ChainSelect {
 
     cacheState = {};
 
+    state = {};
+
     constructor(baseContext) {
         this.baseContext = baseContext;
         this.form = baseContext.props.form;
 
         this.cacheState = baseContext.state;
-
-        this.onNeedLoad();
     }
 
-    onNeedLoad() {
+    onNeedLoad = () => {
         BaseFunction.Http.post(BaseFunction.Api.getAllChains(),
             (data) =>
             {

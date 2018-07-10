@@ -50,6 +50,9 @@ class TopMenu extends React.Component {
                     </MenuItem>
                 </SubMenu>
                 <SubMenu title={<span><Icon type="appstore" />区块链操作</span>}>
+                    <MenuItem key={BaseFunction.JumpRouter.chainActionGetPrivateKey}>
+                        <span>速记词生成私钥</span>
+                    </MenuItem>
                     <MenuItem key={BaseFunction.JumpRouter.chainActionTransfer}>
                         <span>转账</span>
                     </MenuItem>

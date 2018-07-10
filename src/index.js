@@ -14,7 +14,8 @@ import ChangeChainUser from './components/ChainUserTable/ChangeChainUser'
 import TransferAction from './components/ChainSelect/TransferAction'
 import CreateAssetAction from './components/ChainSelect/CreateAssetAction'
 import IssueAssetAction from './components/ChainSelect/IssueAssetAction'
-// import JumpRouter from './baseFunction/JumpRouter'
+import ActionGetPrivateKey from './components/ChainSelect/ActionGetPrivateKey'
+
 import BaseFunction from './baseFunction'
 
 
@@ -32,6 +33,7 @@ render((
             <Route path={BaseFunction.JumpRouter.chainActionTransfer} component={TransferAction}/>
             <Route path={BaseFunction.JumpRouter.chainActionCreateAsset} component={CreateAssetAction}/>
             <Route path={BaseFunction.JumpRouter.chainActionIssueAsset} component={IssueAssetAction}/>
+            <Route path={BaseFunction.JumpRouter.chainActionGetPrivateKey} component={ActionGetPrivateKey}/>
         </div>
     </BrowserRouter>
 ),document.getElementById('root'));
