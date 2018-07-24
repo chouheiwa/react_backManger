@@ -17,7 +17,7 @@ class IssueAssetAction extends Component {
         confirmButtonLoading : false,
     };
 
-    baseAction = new BaseAction(this,"非智能资产发放");
+    baseAction = new BaseAction(this,"非智能资产发放",true);
 
     constructor(props) {
         super(props);

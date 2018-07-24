@@ -14,7 +14,7 @@ class TransferAction extends Component{
         confirmButtonLoading : false,
     };
 
-    baseAction = new BaseAction(this,"转账");
+    baseAction = new BaseAction(this,"转账",true);
     constructor(props) {
         super(props);
 

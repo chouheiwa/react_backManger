@@ -15,7 +15,7 @@ class CreateAssetAction extends Component {
         confirmButtonLoading : false,
     };
 
-    baseAction = new BaseAction(this,"发行新资产");
+    baseAction = new BaseAction(this,"发行新资产",true);
 
     constructor(props) {
         super(props);

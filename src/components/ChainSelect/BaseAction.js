@@ -25,6 +25,8 @@ class BaseAction {
         this.title = title;
         this.componment = base;
 
+
+
         if (needChainSelect !== null) this.needChainSelect = needChainSelect;
 
         this.chainSelect = new ChainSelect(base);
